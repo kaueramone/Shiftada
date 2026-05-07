@@ -1,7 +1,7 @@
 /**
  * Supabase SERVER client
  * Import only in Server Components, Route Handlers and Server Actions.
- * Uses cookies for session — never exposes service_role to the browser.
+ * Uses cookies for session - never exposes service_role to the browser.
  */
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
