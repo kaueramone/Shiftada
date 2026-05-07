@@ -7,31 +7,40 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/'
 
-  if (code) {
-    const cookieStore = await cookies()
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() {
-            return cookieStore.getAll()
-          },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            )
-          },
-        },
-      }
-    )
-
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
-
-    if (!error) {
-      return NextResponse.redirect(`${origin}${next}`)
-    }
+  if (!code) {
+    return NextResponse.redirect(new URL('/login?error=no_code', origin))
   }
 
-  return NextResponse.redirect(`${origin}/login?error=auth`)
+  const cookieStore = await cookies()
+
+  // Create redirect response FIRST so cookies are attached to it
+  const redirectUrl = new URL(next === '/' ? '/' : next, origin)
+  const response = NextResponse.redirect(redirectUrl)
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll()
+        },
+        setAll(cookiesToSet) {
+          // Set cookies on the redirect response directly
+          cookiesToSet.forEach(({ name, value, options }) => {
+            response.cookies.set(name, value, options)
+          })
+        },
+      },
+    }
+  )
+
+  const { error } = await supabase.auth.exchangeCodeForSession(code)
+
+  if (error) {
+    console.error('Auth callback error:', error.message)
+    return NextResponse.redirect(new URL('/login?error=auth', origin))
+  }
+
+  return response
 }
