@@ -8,9 +8,10 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string }>
 }) {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  // getSession lê dos cookies sem chamada de rede — sempre consistente
+  const { data: { session } } = await supabase.auth.getSession()
 
-  if (user) redirect("/")
+  if (session) redirect("/")
 
   const { error } = await searchParams
   return <LoginForm error={error} />

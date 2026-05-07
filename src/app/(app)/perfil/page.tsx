@@ -35,6 +35,10 @@ function ShiftItem({ shift }: { shift: Shift }) {
 
 export default async function PerfilPage() {
   const supabase = await createClient()
+  // getSession lê dos cookies sem chamada de rede — sempre consistente
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) redirect("/login")
+  // getUser para dados reais do usuário (feito depois da checagem)
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect("/login")
 
