@@ -132,4 +132,15 @@ export default async function PerfilPage() {
         <h2 className="font-bold text-gray-800 mb-1">Meus plantoes</h2>
         <p className="text-xs text-gray-400 mb-3">{shifts.length} publicado{shifts.length !== 1 ? "s" : ""}</p>
         {shifts.length === 0 ? (
-          <p className="text-sm text-gray-400 text-cen
+          <p className="text-sm text-gray-400 text-center py-6">Nenhum plantao publicado ainda.</p>
+        ) : (
+          <div>
+            {shifts.map((shift) => (
+              <ShiftItem key={shift.id} shift={shift} />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}

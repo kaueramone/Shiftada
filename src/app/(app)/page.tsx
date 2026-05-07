@@ -75,14 +75,16 @@ export default async function HomePage() {
   const supabase = await createClient()
   const { data: { session }, error } = await supabase.auth.getSession()
 
-  console.log(`[HOME PAGE] session=${session?.user?.id ?? 'null'} | error=${error?.message ?? 'none'}`)
+  const uid = session?.user?.id ?? 'null'
+  const err = error?.message ?? 'none'
+  console.log(`[HOME PAGE] session=${uid} | error=${err}`)
 
   if (!session) {
-    console.log('[HOME PAGE] sem sessão → redirect /login')
+    console.log('[HOME PAGE] sem sessao -> redirect /login')
     redirect("/login")
   }
 
-  console.log('[HOME PAGE] sessão OK → renderiza feed')
+  console.log('[HOME PAGE] sessao OK -> renderiza feed')
 
   const shifts = await getShifts()
 
@@ -102,4 +104,16 @@ export default async function HomePage() {
           </div>
           <h2 className="text-lg font-semibold text-gray-800 mb-2">Nenhum plantao ainda</h2>
           <p className="text-gray-500 text-sm max-w-xs">
-            Seja o primeiro a anunciar
+            Seja o primeiro a anunciar um plantao na sua regiao.
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3 pb-4">
+          {shifts.map((shift) => (
+            <ShiftCard key={shift.id} shift={shift} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
