@@ -42,7 +42,7 @@ export default async function PedidosPage() {
   const byShift = new Map<string, { shift: Record<string, unknown>; apps: typeof ownerApps }>()
   for (const app of ownerApps) {
     const sid = app.shift_id
-    if (!byShift.has(sid)) byShift.set(sid, { shift: app.shifts as Record<string, unknown>, apps: [] })
+    if (!byShift.has(sid)) byShift.set(sid, { shift: app.shifts as unknown as Record<string, unknown>, apps: [] })
     byShift.get(sid)!.apps.push(app)
   }
 
