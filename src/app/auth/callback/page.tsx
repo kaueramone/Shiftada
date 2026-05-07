@@ -21,13 +21,15 @@ function CallbackHandler() {
       const supabase = createClient()
       supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
         if (error) {
-          router.replace("/login?error=auth")
+          window.location.href = "/login?error=auth"
         } else {
-          router.replace("/")
+          // Hard redirect garante que o servidor recebe
+          // os cookies de sessão na próxima request
+          window.location.href = "/"
         }
       })
     } else {
-      router.replace("/login")
+      window.location.href = "/login"
     }
   }, [router, searchParams])
 

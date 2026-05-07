@@ -25,9 +25,9 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Only refresh session cookies — no redirects here.
-  // Auth guards live in the page components themselves.
-  await supabase.auth.getSession()
+  // Refresh + validação server-side — sem redirects aqui.
+  // Auth guards ficam nas próprias pages.
+  await supabase.auth.getUser()
 
   return supabaseResponse
 }
