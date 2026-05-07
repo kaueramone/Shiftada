@@ -1,6 +1,8 @@
 import { getShifts } from "@/lib/actions/shifts"
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
+import { Suspense } from "react"
+import FilterBar from "@/components/FilterBar"
 import type { Shift } from "@/types"
 
 function formatDate(dateStr: string) {
@@ -71,40 +73,45 @@ function ShiftCard({ shift }: { shift: Shift }) {
   )
 }
 
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ city?: string; state?: string }>
+}) {
   const supabase = await createClient()
-  const { data: { session }, error } = await supabase.auth.getSession()
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) redirect("/login")
 
-  const uid = session?.user?.id ?? 'null'
-  const err = error?.message ?? 'none'
-  console.log(`[HOME PAGE] session=${uid} | error=${err}`)
-
-  if (!session) {
-    console.log('[HOME PAGE] sem sessao -> redirect /login')
-    redirect("/login")
-  }
-
-  console.log('[HOME PAGE] sessao OK -> renderiza feed')
-
-  const shifts = await getShifts()
+  const { city, state } = await searchParams
+  const shifts = await getShifts({ city, state })
 
   return (
     <div className="px-4 pt-6">
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Plantões</h1>
           <p className="text-sm text-gray-500 mt-0.5">{shifts.length} disponível{shifts.length !== 1 ? "is" : ""}</p>
         </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/shiftada-logo1.png" alt="Shiftada" className="h-7 object-contain opacity-80" />
       </div>
 
+      <Suspense fallback={null}>
+        <FilterBar initialState={state ?? ""} initialCity={city ?? ""} />
+      </Suspense>
+
       {shifts.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
+        <div className="flex flex-col items-center justify-center py-16 text-center">
           <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: '#eef1f8' }}>
             <span className="text-3xl">🏥</span>
           </div>
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">Nenhum plantão ainda</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-2">
+            {city || state ? "Nenhum plantão encontrado" : "Nenhum plantão ainda"}
+          </h2>
           <p className="text-gray-500 text-sm max-w-xs">
-            Seja o primeiro a anunciar um plantão na sua região.
+            {city || state
+              ? "Tente outros filtros ou aguarde novos anúncios."
+              : "Seja o primeiro a anunciar um plantão na sua região."}
           </p>
         </div>
       ) : (

@@ -5,16 +5,27 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import type { Shift } from "@/types"
 
-export async function getShifts(city?: string): Promise<Shift[]> {
+export async function getShifts(filters?: { city?: string; state?: string }): Promise<Shift[]> {
   const supabase = await createClient()
+
+  // Só exibe plantões cuja data seja hoje ou futura.
+  // Plantão expira automaticamente quando a data passa.
+  // Remoção manual pelo usuário via deleteShift().
+  const today = new Date().toISOString().split("T")[0] // "YYYY-MM-DD"
+
   let query = supabase
     .from("shifts")
     .select("*, users(id, name, specialty)")
+    .gte("date", today)
     .order("is_highlighted", { ascending: false })
+    .order("date", { ascending: true })
     .order("created_at", { ascending: false })
 
-  if (city) {
-    query = query.ilike("city", `%${city}%`)
+  if (filters?.city) {
+    query = query.ilike("city", `%${filters.city}%`)
+  }
+  if (filters?.state) {
+    query = query.ilike("city", `%, ${filters.state}%`)
   }
 
   const { data, error } = await query

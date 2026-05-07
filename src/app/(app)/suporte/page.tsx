@@ -21,7 +21,11 @@ export default async function SuportePage() {
 
   return (
     <div className="px-4 pt-6 pb-6">
-      <h1 className="text-2xl font-bold text-gray-900 mb-1">Suporte</h1>
+      <div className="flex items-start justify-between mb-1">
+        <h1 className="text-2xl font-bold text-gray-900">Suporte</h1>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/shiftada-logo1.png" alt="Shiftada" className="h-7 object-contain opacity-80 mt-1" />
+      </div>
       <p className="text-sm text-gray-500 mb-5">Ajuda, políticas e como apoiar o projeto.</p>
 
       {/* ── BANNER BETA ── */}
