@@ -76,7 +76,7 @@ export default async function PedidosPage() {
                       Avalie o plantonista
                     </p>
                     <p className="text-xs text-gray-500">
-                      {(app.applicant as Record<string, unknown>)?.name as string} · {(app.shifts as Record<string, unknown>)?.title as string}
+                      {(app.applicant as unknown as Record<string, unknown>)?.name as string} · {(app.shifts as unknown as Record<string, unknown>)?.title as string}
                     </p>
                   </div>
                   <span className="text-yellow-500 text-lg">★</span>
@@ -85,7 +85,7 @@ export default async function PedidosPage() {
               {pendingRatings.rateProvider.map((app: Record<string, unknown>) => (
                 <Link
                   key={String(app.id)}
-                  href={`/avaliar/${app.id}?rated_as=provider&to=${(app.shifts as Record<string, unknown>)?.user_id}&shift=${app.shift_id}`}
+                  href={`/avaliar/${app.id}?rated_as=provider&to=${(app.shifts as unknown as Record<string, unknown>)?.user_id}&shift=${app.shift_id}`}
                   className="flex items-center justify-between bg-white rounded-xl px-3 py-2.5 border border-amber-100"
                 >
                   <div>
@@ -93,7 +93,7 @@ export default async function PedidosPage() {
                       Avalie o plantão
                     </p>
                     <p className="text-xs text-gray-500">
-                      {(app.shifts as Record<string, unknown>)?.title as string}
+                      {(app.shifts as unknown as Record<string, unknown>)?.title as string}
                     </p>
                   </div>
                   <span className="text-yellow-500 text-lg">★</span>
@@ -130,7 +130,7 @@ export default async function PedidosPage() {
 
                 {/* Lista de candidatos */}
                 {apps.map((app) => {
-                  const applicant = app.applicant as Record<string, unknown> | undefined
+                  const applicant = app.applicant as unknown as Record<string, unknown> | undefined
                   return (
                     <div key={app.id} className="px-4 py-3 border-b border-gray-50 last:border-0 flex items-center justify-between gap-3">
                       <div className="flex-1 min-w-0">
@@ -177,7 +177,7 @@ export default async function PedidosPage() {
         ) : (
           <div className="space-y-2">
             {myApps.map((app) => {
-              const shift = app.shifts as Record<string, unknown> | undefined
+              const shift = app.shifts as unknown as Record<string, unknown> | undefined
               return (
                 <div
                   key={app.id}
