@@ -53,6 +53,29 @@ export default async function SuportePage() {
         <SupportForm />
       </section>
 
+      {/* ── LGPD ── */}
+      <section className="mb-8">
+        <h2 className="text-base font-bold text-gray-800 mb-3">Privacidade e LGPD</h2>
+        <div className="rounded-2xl p-4 border border-[#2A4491]/20 text-sm text-gray-600 leading-relaxed space-y-3" style={{ backgroundColor: '#eef1f8' }}>
+          <p className="font-semibold text-[#2A4491]">🔒 Seus dados estão protegidos pela LGPD</p>
+          <p>
+            O Shiftada solicita seus dados profissionais — como conselho de classe e número de registro —
+            exclusivamente para <strong className="text-gray-800">garantir a segurança de todos os usuários</strong>.
+            Verificamos que apenas profissionais regularizados pelos conselhos da área da saúde
+            anunciam e se candidatam a plantões na plataforma.
+          </p>
+          <p>
+            Operamos em conformidade com a <strong className="text-gray-800">Lei Geral de Proteção de Dados
+            (LGPD — Lei nº 13.709/2018)</strong>. As informações coletadas são armazenadas com segurança
+            e utilizadas somente para o funcionamento da plataforma.
+          </p>
+          <p>
+            <strong className="text-gray-800">Não vendemos nem compartilhamos</strong> seus dados com terceiros para fins comerciais.
+            Para solicitar exclusão dos seus dados, entre em contato pelo e-mail abaixo.
+          </p>
+        </div>
+      </section>
+
       {/* ── POLÍTICAS DE USO ── */}
       <section className="mb-8">
         <h2 className="text-base font-bold text-gray-800 mb-3">Políticas de uso</h2>

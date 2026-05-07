@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { isProfileComplete } from "@/lib/utils/profile"
 import type { Shift } from "@/types"
 
 export async function getShifts(filters?: { city?: string; state?: string }): Promise<Shift[]> {
@@ -48,12 +49,16 @@ export async function getUserShifts(): Promise<Shift[]> {
   return data as Shift[]
 }
 
-export async function createShift(formData: FormData) {
+export async function createShift(formData: FormData): Promise<{ error?: string } | void> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect("/login")
 
-  await supabase.from("users").upsert({ id: user.id }, { onConflict: "id" })
+  // Gate: perfil completo obrigatório antes de publicar
+  const { data: profile } = await supabase.from("users").select("*").eq("id", user.id).single()
+  if (!isProfileComplete(profile)) {
+    return { error: "PROFILE_INCOMPLETE" }
+  }
 
   const { error } = await supabase.from("shifts").insert({
     user_id: user.id,
@@ -92,6 +97,9 @@ export async function updateUserProfile(formData: FormData) {
     name: formData.get("name") as string,
     phone: formData.get("phone") as string,
     specialty: formData.get("specialty") as string,
+    conselho: formData.get("conselho") as string,
+    registro: formData.get("registro") as string,
+    estado_uf: formData.get("estado_uf") as string,
   }, { onConflict: "id" })
 
   revalidatePath("/perfil")
