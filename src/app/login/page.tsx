@@ -10,15 +10,4 @@ export default async function LoginPage({
   const supabase = await createClient()
   const { data: { session }, error: sessionError } = await supabase.auth.getSession()
 
-  console.log(`[LOGIN PAGE] session=${session?.user?.id ?? 'null'} | error=${sessionError?.message ?? 'none'}`)
-
-  if (session) {
-    console.log('[LOGIN PAGE] session encontrada → redirect /')
-    redirect("/")
-  }
-
-  console.log('[LOGIN PAGE] sem sessão → renderiza form')
-
-  const { error } = await searchParams
-  return <LoginForm error={error} />
-}
+  console.log(`[LOGIN PAGE] session=${session?.user?.id ?? 'null'} | error=${s

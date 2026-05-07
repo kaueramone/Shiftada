@@ -27,13 +27,4 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user }, error } = await supabase.auth.getUser()
 
-  console.log(`[MW] ${request.method} ${request.nextUrl.pathname} | user=${user?.id ?? 'null'} | error=${error?.message ?? 'none'} | cookies=${request.cookies.getAll().map(c => c.name).filter(n => n.includes('supabase') || n.includes('sb-')).join(',')}`)
-
-  return supabaseResponse
-}
-
-export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-  ],
-}
+  console.log(`[MW] ${request.method} ${request.nextUrl.pathname} | user=${user?.id ?? 'null'} | error=${error?.message ?? 'none'} | cookies=${request.cookies.getAll().map(c => c.name).filter(n => n.includes('supabase') || n.includes('sb-')).joi

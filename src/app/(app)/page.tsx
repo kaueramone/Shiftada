@@ -102,16 +102,4 @@ export default async function HomePage() {
           </div>
           <h2 className="text-lg font-semibold text-gray-800 mb-2">Nenhum plantao ainda</h2>
           <p className="text-gray-500 text-sm max-w-xs">
-            Seja o primeiro a anunciar um plantao na sua regiao.
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-3 pb-4">
-          {shifts.map((shift) => (
-            <ShiftCard key={shift.id} shift={shift} />
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
+            Seja o primeiro a anunciar
