@@ -49,7 +49,7 @@ export default function LoginForm({ error: initialError }: { error?: string }) {
       if (error) {
         setError(error.message)
       } else {
-        setSuccess("Conta criada! Verifique seu email para confirmar o cadastro.")
+        setSuccess("Conta criada! Verifique seu e-mail para confirmar o cadastro.")
       }
     }
     setLoading(false)
@@ -71,7 +71,11 @@ export default function LoginForm({ error: initialError }: { error?: string }) {
               className="object-contain"
             />
           </div>
-          <p className="text-gray-500 mt-1 text-sm">Plantoes medicos, direto ao ponto.</p>
+          <p className="text-gray-600 mt-2 text-sm leading-relaxed text-center max-w-[260px] mx-auto">
+            A plataforma que conecta profissionais de saúde a plantões disponíveis —
+            médicos, enfermeiros, técnicos e mais.
+            Rápido, simples e via WhatsApp.
+          </p>
         </div>
 
         {/* Tab toggle */}
@@ -161,6 +165,21 @@ export default function LoginForm({ error: initialError }: { error?: string }) {
           </button>
         </div>
 
+      </div>
+
+      {/* Assinatura */}
+      <div className="pb-6 text-center">
+        <p className="text-xs text-gray-400">
+          Desenvolvido com 💙 por{" "}
+          <a
+            href="https://kaueramone.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-gray-500 hover:text-[#2A4491] transition-colors"
+          >
+            KAUE RAMONE
+          </a>
+        </p>
       </div>
     </div>
   )

@@ -104,7 +104,7 @@ export default async function PerfilPage() {
             <input
               name="specialty"
               defaultValue={userProfile?.specialty ?? ""}
-              placeholder="Ex: Clinico Geral, Emergencista..."
+              placeholder="Ex: Enfermeiro, Médico, Técnico de Enfermagem..."
               className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
             />
           </div>
@@ -123,16 +123,16 @@ export default async function PerfilPage() {
             className="w-full text-white font-semibold py-3 rounded-xl text-sm transition-colors"
             style={{ backgroundColor: '#2A4491' }}
           >
-            Salvar alteracoes
+            Salvar alterações
           </button>
         </form>
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-100 p-4">
-        <h2 className="font-bold text-gray-800 mb-1">Meus plantoes</h2>
+        <h2 className="font-bold text-gray-800 mb-1">Meus plantões</h2>
         <p className="text-xs text-gray-400 mb-3">{shifts.length} publicado{shifts.length !== 1 ? "s" : ""}</p>
         {shifts.length === 0 ? (
-          <p className="text-sm text-gray-400 text-center py-6">Nenhum plantao publicado ainda.</p>
+          <p className="text-sm text-gray-400 text-center py-6">Nenhum plantão publicado ainda.</p>
         ) : (
           <div>
             {shifts.map((shift) => (

@@ -24,13 +24,13 @@ export default function SupportForm() {
         <div className="text-3xl mb-2">✅</div>
         <p className="font-semibold text-green-800">Abrindo seu email...</p>
         <p className="text-sm text-green-600 mt-1">
-          Lembre-se de anexar o print diretamente no email antes de enviar.
+          Lembre-se de anexar o print diretamente no e-mail antes de enviar.
         </p>
         <button
           onClick={() => setSent(false)}
           className="mt-3 text-xs text-green-700 underline"
         >
-          Voltar ao formulario
+          Voltar ao formulário
         </button>
       </div>
     )
@@ -40,27 +40,27 @@ export default function SupportForm() {
     <form onSubmit={handleSubmit} className="space-y-3">
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-          Titulo do problema
+          Título do problema
         </label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Ex: Nao consigo publicar plantao"
+          placeholder="Ex: Não consigo publicar plantão"
           className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
         />
       </div>
 
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-          Descricao *
+          Descrição *
         </label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
           rows={4}
-          placeholder="Descreva o que aconteceu, o que voce estava tentando fazer e qual o erro que apareceu..."
+          placeholder="Descreva o que aconteceu, o que você estava tentando fazer e qual o erro que apareceu..."
           className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
         />
       </div>
@@ -84,7 +84,7 @@ export default function SupportForm() {
           />
         </label>
         <p className="text-xs text-gray-400 mt-1 ml-1">
-          O print sera anexado manualmente no seu app de email.
+          O print será anexado manualmente no seu app de e-mail.
         </p>
       </div>
 
@@ -93,7 +93,7 @@ export default function SupportForm() {
         className="w-full text-white font-semibold py-4 rounded-2xl text-sm transition-colors"
         style={{ backgroundColor: '#2A4491' }}
       >
-        Abrir email para enviar
+        Abrir e-mail para enviar
       </button>
     </form>
   )

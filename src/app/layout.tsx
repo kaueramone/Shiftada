@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Shiftada - Plantoes medicos",
-  description: "Encontre e anuncie plantoes medicos de forma rapida e simples.",
+  title: "Shiftada - Plantões para profissionais de saúde",
+  description: "Encontre e anuncie plantões de forma rápida e simples. Para médicos, enfermeiros, técnicos e todos os profissionais da saúde.",
 }
 
 export const viewport: Viewport = {

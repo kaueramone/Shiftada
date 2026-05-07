@@ -19,29 +19,29 @@ export default function CriarPage() {
   return (
     <div className="px-4 pt-6 pb-4">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Novo Plantao</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Preencha os dados do plantao</p>
+        <h1 className="text-2xl font-bold text-gray-900">Novo Plantão</h1>
+        <p className="text-sm text-gray-500 mt-0.5">Preencha os dados do plantão</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">Titulo *</label>
-          <input name="title" required placeholder="Ex: Plantao clinico geral UPA" className={inputClass} />
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">Título *</label>
+          <input name="title" required placeholder="Ex: Plantão clínico geral UPA" className={inputClass} />
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">Descricao</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">Descrição</label>
           <textarea
             name="description"
             rows={3}
-            placeholder="Detalhes adicionais sobre o plantao..."
+            placeholder="Detalhes adicionais sobre o plantão..."
             className={`${inputClass} resize-none`}
           />
         </div>
 
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5">Cidade *</label>
-          <input name="city" required placeholder="Ex: Sao Paulo, SP" className={inputClass} />
+          <input name="city" required placeholder="Ex: São Paulo, SP" className={inputClass} />
         </div>
 
         <div>
@@ -51,7 +51,7 @@ export default function CriarPage() {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Inicio *</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Início *</label>
             <input name="start_time" type="time" required className={inputClass} />
           </div>
           <div>
@@ -84,7 +84,7 @@ export default function CriarPage() {
             className="w-full disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-4 rounded-2xl transition-colors text-base"
             style={{ backgroundColor: '#2A4491' }}
           >
-            {isPending ? "Publicando..." : "Publicar Plantao"}
+            {isPending ? "Publicando..." : "Publicar Plantão"}
           </button>
         </div>
       </form>
