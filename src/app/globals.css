@@ -3,8 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #111827;
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
+  --primary: #2A4491;
+  --primary-dark: #1e3070;
+  --primary-light: #eef1f8;
+  --gray-terminal: #1E2329;
 }
 
 body {

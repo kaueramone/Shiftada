@@ -23,9 +23,9 @@ function whatsappUrl(phone: string, shift: Shift) {
 
 function ShiftCard({ shift }: { shift: Shift }) {
   return (
-    <div className={`bg-white rounded-2xl p-4 shadow-sm border ${shift.is_highlighted ? "border-blue-400 ring-1 ring-blue-400" : "border-gray-100"}`}>
+    <div className={`bg-white rounded-2xl p-4 shadow-sm border ${shift.is_highlighted ? "border-[#2A4491] ring-1 ring-[#2A4491]" : "border-gray-100"}`}>
       {shift.is_highlighted && (
-        <span className="inline-block bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full mb-2">
+        <span className="inline-block text-white text-xs font-semibold px-2 py-0.5 rounded-full mb-2" style={{ backgroundColor: '#2A4491' }}>
           Destaque
         </span>
       )}
@@ -33,7 +33,7 @@ function ShiftCard({ shift }: { shift: Shift }) {
         <div className="flex-1 min-w-0">
           <h2 className="font-bold text-gray-900 text-base leading-tight truncate">{shift.title}</h2>
           {shift.users?.specialty && (
-            <span className="text-xs text-blue-600 font-medium">{shift.users.specialty}</span>
+            <span className="text-xs font-medium" style={{ color: '#2A4491' }}>{shift.users.specialty}</span>
           )}
         </div>
         <span className="text-base font-bold text-green-600 whitespace-nowrap">{formatPrice(shift.price)}</span>
@@ -89,7 +89,7 @@ export default async function HomePage() {
 
       {shifts.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: '#eef1f8' }}>
             <span className="text-3xl">🏥</span>
           </div>
           <h2 className="text-lg font-semibold text-gray-800 mb-2">Nenhum plantao ainda</h2>

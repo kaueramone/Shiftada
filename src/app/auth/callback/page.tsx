@@ -33,7 +33,7 @@ function CallbackHandler() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-      <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4" />
+      <div className="w-10 h-10 border-4 border-t-transparent rounded-full animate-spin mb-4" style={{ borderColor: '#2A4491', borderTopColor: 'transparent' }} />
       <p className="text-gray-500 text-sm">Autenticando...</p>
     </div>
   )

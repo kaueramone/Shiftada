@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 type Mode = "login" | "signup"
 
@@ -58,11 +59,18 @@ export default function LoginForm({ error: initialError }: { error?: string }) {
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1 flex flex-col items-center justify-center px-6 pb-10">
 
+        {/* Logo */}
         <div className="mb-8 text-center">
-          <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white text-2xl font-bold">S</span>
+          <div className="flex items-center justify-center mx-auto mb-3">
+            <Image
+              src="/shiftada-logo1.png"
+              alt="Shiftada"
+              width={180}
+              height={60}
+              priority
+              className="object-contain"
+            />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Shiftada</h1>
           <p className="text-gray-500 mt-1 text-sm">Plantoes medicos, direto ao ponto.</p>
         </div>
 
@@ -90,7 +98,7 @@ export default function LoginForm({ error: initialError }: { error?: string }) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
             />
           )}
           <input
@@ -99,7 +107,7 @@ export default function LoginForm({ error: initialError }: { error?: string }) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
           />
           <input
             type="password"
@@ -108,7 +116,7 @@ export default function LoginForm({ error: initialError }: { error?: string }) {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
           />
 
           {error && (
@@ -125,7 +133,8 @@ export default function LoginForm({ error: initialError }: { error?: string }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-semibold py-4 rounded-2xl transition-colors text-base"
+            className="w-full disabled:opacity-60 text-white font-semibold py-4 rounded-2xl transition-colors text-base"
+            style={{ backgroundColor: loading ? '#1e3070' : '#2A4491' }}
           >
             {loading ? "Aguarde..." : mode === "login" ? "Entrar" : "Criar conta"}
           </button>

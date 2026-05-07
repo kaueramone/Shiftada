@@ -66,12 +66,16 @@ export default async function PerfilPage() {
       </div>
 
       <div className="flex items-center gap-3 mb-6">
-        {user.user_metadata?.avatar_url && (
+        {user.user_metadata?.avatar_url ? (
           <img
             src={user.user_metadata.avatar_url}
             alt="foto"
             className="w-14 h-14 rounded-full object-cover"
           />
+        ) : (
+          <div className="w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-bold" style={{ backgroundColor: '#2A4491' }}>
+            {(user.user_metadata?.full_name || user.email || "?")[0].toUpperCase()}
+          </div>
         )}
         <div>
           <p className="font-bold text-gray-900">{user.user_metadata?.full_name || "Sem nome"}</p>
@@ -88,7 +92,7 @@ export default async function PerfilPage() {
               name="name"
               defaultValue={userProfile?.name ?? user.user_metadata?.full_name ?? ""}
               placeholder="Seu nome"
-              className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
             />
           </div>
           <div>
@@ -97,7 +101,7 @@ export default async function PerfilPage() {
               name="specialty"
               defaultValue={userProfile?.specialty ?? ""}
               placeholder="Ex: Clinico Geral, Emergencista..."
-              className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
             />
           </div>
           <div>
@@ -107,12 +111,13 @@ export default async function PerfilPage() {
               type="tel"
               defaultValue={userProfile?.phone ?? ""}
               placeholder="11999999999"
-              className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2A4491]"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl text-sm transition-colors"
+            className="w-full text-white font-semibold py-3 rounded-xl text-sm transition-colors"
+            style={{ backgroundColor: '#2A4491' }}
           >
             Salvar alteracoes
           </button>
