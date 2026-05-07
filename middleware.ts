@@ -25,21 +25,9 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Use getSession() no middleware — lê o cookie sem chamada de rede.
-  // getUser() é usado nas páginas para validação real do token.
-  const { data: { session } } = await supabase.auth.getSession()
-
-  const pathname = request.nextUrl.pathname
-  const isLoginRoute = pathname.startsWith('/login')
-  const isCallbackRoute = pathname.startsWith('/auth/callback')
-
-  if (!session && !isLoginRoute && !isCallbackRoute) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
-
-  if (session && isLoginRoute) {
-    return NextResponse.redirect(new URL('/', request.url))
-  }
+  // Only refresh session cookies — no redirects here.
+  // Auth guards live in the page components themselves.
+  await supabase.auth.getSession()
 
   return supabaseResponse
 }
