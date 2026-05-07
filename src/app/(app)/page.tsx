@@ -73,9 +73,16 @@ function ShiftCard({ shift }: { shift: Shift }) {
 
 export default async function HomePage() {
   const supabase = await createClient()
-  // getSession lê dos cookies sem chamada de rede — sempre consistente
-  const { data: { session } } = await supabase.auth.getSession()
-  if (!session) redirect("/login")
+  const { data: { session }, error } = await supabase.auth.getSession()
+
+  console.log(`[HOME PAGE] session=${session?.user?.id ?? 'null'} | error=${error?.message ?? 'none'}`)
+
+  if (!session) {
+    console.log('[HOME PAGE] sem sessão → redirect /login')
+    redirect("/login")
+  }
+
+  console.log('[HOME PAGE] sessão OK → renderiza feed')
 
   const shifts = await getShifts()
 

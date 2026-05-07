@@ -19,16 +19,17 @@ function CallbackHandler() {
 
     if (code) {
       const supabase = createClient()
-      supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
+      supabase.auth.exchangeCodeForSession(code).then(({ data, error }) => {
         if (error) {
+          console.error('[CALLBACK] exchangeCodeForSession error:', error.message)
           window.location.href = "/login?error=auth"
         } else {
-          // Hard redirect garante que o servidor recebe
-          // os cookies de sessão na próxima request
+          console.log('[CALLBACK] exchangeCodeForSession OK | user:', data.user?.id, '| session expires:', data.session?.expires_at)
           window.location.href = "/"
         }
       })
     } else {
+      console.warn('[CALLBACK] sem code na URL')
       window.location.href = "/login"
     }
   }, [router, searchParams])
