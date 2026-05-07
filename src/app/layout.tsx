@@ -4,6 +4,10 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "Shiftada - Plantões para profissionais de saúde",
   description: "Encontre e anuncie plantões de forma rápida e simples. Para médicos, enfermeiros, técnicos e todos os profissionais da saúde.",
+  icons: {
+    icon: "/shiftada-favicon.png",
+    apple: "/shiftada-favicon.png",
+  },
 }
 
 export const viewport: Viewport = {
