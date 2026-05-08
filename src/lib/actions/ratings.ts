@@ -72,7 +72,6 @@ export async function getUserReputation(userId: string): Promise<UserReputation>
 // Avaliações que o usuário ainda precisa dar
 export async function getPendingRatings(userId: string) {
   const supabase = await createClient()
-  const today = new Date().toISOString().split("T")[0]
 
   // IDs de candidaturas que o usuário já avaliou
   const { data: myRatings } = await supabase
@@ -90,11 +89,10 @@ export async function getPendingRatings(userId: string) {
       shifts!inner(id, title, date, city, user_id),
       applicant:users!applicant_id(id, name, specialty)
     `)
-    .eq("status", "contacted")
-    .lt("shifts.date", today)
+    .eq("status", "completed")
     .eq("shifts.user_id", userId)
 
-  // Candidaturas em que fui escolhido (sou candidato → preciso avaliar o ofertante)
+  // Candidaturas em que fui escolhido e confirmado (sou candidato → preciso avaliar o ofertante)
   const { data: applicantApps } = await supabase
     .from("shift_applications")
     .select(`
@@ -102,8 +100,7 @@ export async function getPendingRatings(userId: string) {
       shifts!inner(id, title, date, city, user_id)
     `)
     .eq("applicant_id", userId)
-    .eq("status", "contacted")
-    .lt("shifts.date", today)
+    .eq("status", "completed")
 
   const rateWorker = (ownerApps ?? []).filter((a: { id: string }) => !ratedIds.has(a.id))
   const rateProvider = (applicantApps ?? []).filter((a: { id: string }) => !ratedIds.has(a.id))

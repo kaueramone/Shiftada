@@ -21,7 +21,7 @@ export async function applyToShift(shiftId: string) {
   revalidatePath("/")
 }
 
-// Cancelar candidatura
+// Cancelar candidatura (próprio candidato)
 export async function cancelApplication(applicationId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -36,7 +36,7 @@ export async function cancelApplication(applicationId: string) {
   revalidatePath("/pedidos")
 }
 
-// Marcar como "contatado" (dono do plantão entrou em contato)
+// Dono entra em contato via WhatsApp → status: contacted
 export async function contactApplicant(applicationId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -45,6 +45,48 @@ export async function contactApplicant(applicationId: string) {
   await supabase
     .from("shift_applications")
     .update({ status: "contacted" })
+    .eq("id", applicationId)
+
+  revalidatePath("/pedidos")
+}
+
+// Dono fecha com este plantonista → status: accepted
+export async function acceptApplicant(applicationId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect("/login")
+
+  await supabase
+    .from("shift_applications")
+    .update({ status: "accepted" })
+    .eq("id", applicationId)
+
+  revalidatePath("/pedidos")
+}
+
+// Dono recusa candidato → status: rejected
+export async function rejectApplicant(applicationId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect("/login")
+
+  await supabase
+    .from("shift_applications")
+    .update({ status: "rejected" })
+    .eq("id", applicationId)
+
+  revalidatePath("/pedidos")
+}
+
+// Dono confirma que o plantão foi realizado → status: completed (libera avaliações)
+export async function confirmShiftCompleted(applicationId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect("/login")
+
+  await supabase
+    .from("shift_applications")
+    .update({ status: "completed" })
     .eq("id", applicationId)
 
   revalidatePath("/pedidos")
