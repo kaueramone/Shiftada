@@ -22,6 +22,7 @@ export interface UserProfile {
   conselho: string | null   // CRM, COREN, CREFITO, etc.
   registro: string | null   // número de registro profissional
   estado_uf: string | null  // UF do conselho (SP, RJ, etc.)
+  avatar_url: string | null // foto de perfil personalizada
   created_at: string
 }
 

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { getUserShifts, updateUserProfile, deleteShift } from "@/lib/actions/shifts"
 import { getUserReputation } from "@/lib/actions/ratings"
 import { isProfileComplete, getMissingFields, CONSELHOS, UF_LIST } from "@/lib/utils/profile"
+import AvatarUpload from "@/components/AvatarUpload"
 import type { Shift, UserProfile } from "@/types"
 import Link from "next/link"
 
@@ -84,15 +85,12 @@ export default async function PerfilPage() {
       </div>
 
       {/* Avatar + nome */}
-      <div className="flex items-center gap-3 mb-5">
-        {user.user_metadata?.avatar_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={user.user_metadata.avatar_url} alt="foto" className="w-14 h-14 rounded-full object-cover" />
-        ) : (
-          <div className="w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-bold" style={{ backgroundColor: "#2A4491" }}>
-            {(user.user_metadata?.full_name || user.email || "?")[0].toUpperCase()}
-          </div>
-        )}
+      <div className="flex items-center gap-4 mb-5">
+        <AvatarUpload
+          userId={user.id}
+          currentUrl={userProfile?.avatar_url ?? user.user_metadata?.avatar_url ?? null}
+          fallbackInitial={(user.user_metadata?.full_name || user.email || "?")[0].toUpperCase()}
+        />
         <div>
           <p className="font-bold text-gray-900">{user.user_metadata?.full_name || "Sem nome"}</p>
           <p className="text-sm text-gray-500">{user.email}</p>
